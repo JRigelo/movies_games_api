@@ -1,4 +1,4 @@
-## Movies and video games REST API
+## Movies & games REST API
 
 ## Overview
 
@@ -20,12 +20,5 @@ And powered by Swagger-UI: [FaceInfo REST API Documentation](http://faceinfo.fis
 - [Swagger-UI](https://github.com/swagger-api/swagger-ui)
 - [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/) (fla _Swagger Spec_)
     - also see http://editor.swagger.io/ for a playground to help you write Swagger Spec
-- [OpenCV](http://opencv.org/)
-- [Keras](http://keras.io/) (soon!)
-- [SQLite](https://www.sqlite.org/) (soon!)
 
-In addition and by necessity, the simple demo uses [HTML5](https://en.wikipedia.org/wiki/HTML5)/[CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets#CSS_3) + [Javascript](https://en.wikipedia.org/wiki/JavaScript)/[jQuery](https://jquery.com/).
 
-## How to deploy!
-
-TODO. Coming soon, I hope!
