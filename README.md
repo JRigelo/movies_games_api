@@ -1,4 +1,4 @@
-# FaceInfo REST API
+## Movies and video games REST API
 
 ## Overview
 
