@@ -7,7 +7,10 @@ amazon links to rent or buy them.
 
 ## Documentation
 
-Powered by Swagger-UI: [FaceInfo REST API Documentation](http://faceinfo.fishpoke.com:5000/)
+API strongly based on: [FaceInfo REST API](https://github.com/acu192/faceinfo) 
+Thanks, Ryan!
+And powered by Swagger-UI: [FaceInfo REST API Documentation](http://faceinfo.fishpoke.com:5000/)
+
 
 ## Technologies Used
 
