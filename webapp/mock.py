@@ -48,8 +48,9 @@ def autocomplete():
 
     search_terms = request.args['q']
     results_list = comp.complete(search_terms)
-    results_dict = {'results': results_list}
-    return jsonify(results_dict)
+    results = jsonify({'results': results_list})
+    results.headers.add('Access-Control-Allow-Origin', '*')
+    return results
 
 @blueprint.route('/make_recommendation', methods=['GET'])
 def make_recommendation():
@@ -95,9 +96,11 @@ def make_recommendation():
     am1 = 'https://www.amazon.com/dp/0439339960'
     am2 = 'https://www.amazon.com/dp/0439339970'
     am2 = 'https://www.amazon.com/dp/0439339980'
-    d = {'results': [(url1, am1),
-       (url2, am1),(url3, am1)]}
-    return jsonify(d)
+    d = jsonify({'results': [(url1, am1),
+       (url2, am1),(url3, am1)]})
+    d.headers.add('Access-Control-Allow-Origin', '*')
+    return d
+
 
 @blueprint.route('/games_samples', methods=['GET'])
 def games_samples():
@@ -127,12 +130,10 @@ def games_samples():
     Id1 = '000924824'
     Id2 = '0001348134'
     Id3 = '00024824723'
-    d = {'results': [(url1, Id1),
-       (url2, Id2),(url3, Id3)]}
-    return jsonify(d)
-
-
-
+    d = jsonify({'results': [(url1, Id1),
+       (url2, Id2),(url3, Id3)]})
+    d.headers.add('Access-Control-Allow-Origin', '*')
+    return d
 
 
 
