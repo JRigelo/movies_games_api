@@ -16,6 +16,9 @@ from src.recommender import *
 movies = pickle.load( open( "../../data/movies_input.p", "rb" ))
 comp = autocomp.MyCompleter(movies)
 
+mg_output = pickle.load( open( "../data/output_api.p", "rb" ))
+comp_out = autocomp.MyCompleter(movies)
+
 
 blueprint = Blueprint(VERSION_STR, __name__)
 
@@ -39,12 +42,7 @@ def recom_(postive_ids, negative_ids):
 
     recom = recommender_process(user, postive_ids, pos_rate,
                                 t_model_m_g, t_model_m, t_model_g)
-    print "Hi, we are here!"
-    print 'recom', recom
     return recom
-
-
-
 
 
 @blueprint.route('/autocomplete', methods=['GET'])
@@ -76,10 +74,7 @@ def autocomplete():
      - multipart/form-data
      - application/x-www-form-urlencoded
     '''
-    '''names = {'The Theory of Everything': '1273464343', 'Truman Show': '0573469341', 'Matrix': '0070004343', 'Inception': '0275468343',
-            'Futurama': '0078714343', 'Battlestar Galactica': '0073464343', 'Breaking Bad': '0056764123', 'How to train your Dragon': '0073064300',
-            'Into the Wild': '0078764343', 'Lock, Stock and Two Smoking Barrels': '0012464123', 'Cloud Atlas': '0012464300'}
-    '''
+
     search_terms = request.args['q']
     results_list = comp.complete(search_terms)
     results = jsonify({'results': results_list})
@@ -127,7 +122,6 @@ def make_recommendation():
     postive_ids = request.args['postive_ids'].split(',');
     negative_ids = request.args['negative_ids'].split(',')
     recom = recom_(postive_ids, negative_ids)
-#    recom = get_results(recom)
 
     d = jsonify({'results': recom})
     d.headers.add('Access-Control-Allow-Origin', '*')
