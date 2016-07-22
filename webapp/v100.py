@@ -17,7 +17,6 @@ movies = pickle.load( open( "../../data/movies_input.p", "rb" ))
 comp = autocomp.MyCompleter(movies)
 
 mg_output = pickle.load( open( "../data/output_api.p", "rb" ))
-comp_out = autocomp.MyCompleter(movies)
 
 
 blueprint = Blueprint(VERSION_STR, __name__)
@@ -42,7 +41,10 @@ def recom_(postive_ids, negative_ids):
 
     recom = recommender_process(user, postive_ids, pos_rate,
                                 t_model_m_g, t_model_m, t_model_g)
-    return recom
+    final_result = []
+    for id_ in recom:
+        final_result.append(mg_output['id_'])
+    return final_result
 
 
 @blueprint.route('/autocomplete', methods=['GET'])
