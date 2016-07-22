@@ -7,8 +7,44 @@ import numpy as np
 from error import Error
 from flask import Blueprint, request, jsonify
 import autocomplete as autocomp
+import sys
+import os
+import cPickle as pickle
+import random
+from src.recommender import *
+
+movies = pickle.load( open( "../../data/movies_input.p", "rb" ))
+comp = autocomp.MyCompleter(movies)
+
 
 blueprint = Blueprint(VERSION_STR, __name__)
+
+def games_input():
+    games = pickle.load( open( "../../data/games_input.p", "rb" ))
+    return random.sample(games, 10)
+
+def recom_(postive_ids, negative_ids):
+    # Loading trainning model
+    t_model_m_g = load_input_data('../../data/model_m_g')
+    t_model_m = load_input_data('../../data/model_m')
+    t_model_g = load_input_data('../../data/model_g')
+
+    #make recommendation
+    user = 'user'
+    pos_rate = [5]*len(postive_ids)
+    neg_rate = [1]*len(negative_ids)
+
+    postive_ids.extend(negative_ids)
+    pos_rate.extend(neg_rate)
+
+    recom = recommender_process(user, postive_ids, pos_rate,
+                                t_model_m_g, t_model_m, t_model_g)
+    print "Hi, we are here!"
+    print 'recom', recom
+    return recom
+
+
+
 
 
 @blueprint.route('/autocomplete', methods=['GET'])
@@ -40,16 +76,15 @@ def autocomplete():
      - multipart/form-data
      - application/x-www-form-urlencoded
     '''
-
-    names = {'The Theory of Everything': '1273464343', 'Truman Show': '0573469341', 'Matrix': '0070004343', 'Inception': '0275468343',
+    '''names = {'The Theory of Everything': '1273464343', 'Truman Show': '0573469341', 'Matrix': '0070004343', 'Inception': '0275468343',
             'Futurama': '0078714343', 'Battlestar Galactica': '0073464343', 'Breaking Bad': '0056764123', 'How to train your Dragon': '0073064300',
             'Into the Wild': '0078764343', 'Lock, Stock and Two Smoking Barrels': '0012464123', 'Cloud Atlas': '0012464300'}
-    comp = autocomp.MyCompleter(names)
-
+    '''
     search_terms = request.args['q']
     results_list = comp.complete(search_terms)
-    results_dict = {'results': results_list}
-    return jsonify(results_dict)
+    results = jsonify({'results': results_list})
+    results.headers.add('Access-Control-Allow-Origin', '*')
+    return results
 
 @blueprint.route('/make_recommendation', methods=['GET'])
 def make_recommendation():
@@ -89,15 +124,15 @@ def make_recommendation():
      - multipart/form-data
      - application/x-www-form-urlencoded
     '''
-    url1 = 'http://ecx.images-amazon.com/images/I/4182SKAN99L._SY300_.jpg'
-    url2 = 'http://ecx.images-amazon.com/images/I/41ch9L5Vi7L._SY300_.jpg'
-    url3 = 'http://ecx.images-amazon.com/images/I/51RMW3K3N9L._SY300_.jpg'
-    am1 = 'https://www.amazon.com/dp/0439339960'
-    am2 = 'https://www.amazon.com/dp/0439339970'
-    am2 = 'https://www.amazon.com/dp/0439339980'
-    d = {'results': [(url1, am1),
-       (url2, am1),(url3, am1)]}
-    return jsonify(d)
+    postive_ids = request.args['postive_ids'].split(',');
+    negative_ids = request.args['negative_ids'].split(',')
+    recom = recom_(postive_ids, negative_ids)
+#    recom = get_results(recom)
+
+    d = jsonify({'results': recom})
+    d.headers.add('Access-Control-Allow-Origin', '*')
+    return d
+
 
 @blueprint.route('/games_samples', methods=['GET'])
 def games_samples():
@@ -121,18 +156,11 @@ def games_samples():
      - multipart/form-data
      - application/x-www-form-urlencoded
     '''
-    url1 = 'http://ecx.images-amazon.com/images/I/4182SKAN99L._SY300_.jpg'
-    url2 = 'http://ecx.images-amazon.com/images/I/41ch9L5Vi7L._SY300_.jpg'
-    url3 = 'http://ecx.images-amazon.com/images/I/51RMW3K3N9L._SY300_.jpg'
-    Id1 = '000924824'
-    Id2 = '0001348134'
-    Id3 = '00024824723'
-    d = {'results': [(url1, Id1),
-       (url2, Id2),(url3, Id3)]}
-    return jsonify(d)
 
-
-
+    rand_games = games_input()
+    d = jsonify({'results': rand_games})
+    d.headers.add('Access-Control-Allow-Origin', '*')
+    return d
 
 
 
