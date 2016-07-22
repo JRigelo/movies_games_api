@@ -16,8 +16,7 @@ from src.recommender import *
 movies = pickle.load( open( "../../data/movies_input.p", "rb" ))
 comp = autocomp.MyCompleter(movies)
 
-mg_output = pickle.load( open( "../data/output_api.p", "rb" ))
-
+mg_output = pickle.load( open( "../../data/output_api.p", "rb" ))
 
 blueprint = Blueprint(VERSION_STR, __name__)
 
@@ -40,10 +39,13 @@ def recom_(postive_ids, negative_ids):
     pos_rate.extend(neg_rate)
 
     recom = recommender_process(user, postive_ids, pos_rate,
-                                t_model_m_g, t_model_m, t_model_g)
+                                t_model_m_g, t_model_m, t_model_g,
+                                '../../data')
+
     final_result = []
     for id_ in recom:
-        final_result.append(mg_output['id_'])
+        final_result.append(mg_output[id_])
+    print 'final', final_result
     return final_result
 
 
