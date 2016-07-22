@@ -7,6 +7,12 @@ APP_DESCRIPTION = 'Find the next video game or movie for you with this easy REST
 import time
 from flask import Flask, jsonify, g, request, redirect
 from flask_swagger import swagger
+import sys
+import os
+wd = os.path.abspath('.')
+sys.path.append(wd +  '/../../')
+from src.recommender import *
+
 
 app = Flask(__name__)
 
@@ -40,4 +46,4 @@ def after_request(response):
 
 import error
 import admin
-import mock
+import v100
