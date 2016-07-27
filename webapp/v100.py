@@ -48,7 +48,7 @@ def recom_(postive_ids, negative_ids):
                                 t_model_m_g, t_model_m, t_model_g,
                                 '../../data')
 
-#    final_result = []
+    final_result = []
     final_ids = defaultdict(list)
     for id_ in recom:
         if id_ not in final_ids.keys():
