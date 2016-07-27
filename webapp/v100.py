@@ -52,8 +52,9 @@ def recom_(postive_ids, negative_ids):
     final_ids = defaultdict(list)
     for id_ in recom:
         if id_ not in final_ids.keys():
-            final_result.append(mg_output[id_])
-            final_ids[id_] = mg_output[id_]
+            if len(mg_output[id_]) == 2:
+                final_result.append(mg_output[id_])
+                final_ids[id_] = mg_output[id_]
     return final_result
 
 
