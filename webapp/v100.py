@@ -11,24 +11,30 @@ import sys
 import os
 import cPickle as pickle
 import random
+from collections import defaultdict
 from src.recommender import *
 
+# Input for autocomplete
 movies = pickle.load( open( "../../data/movies_input.p", "rb" ))
 comp = autocomp.MyCompleter(movies)
+# Input for game sample
+games = pickle.load( open( "../../data/games_input.p", "rb" ))
 
+# Output dataset (recommender endpoint)
 mg_output = pickle.load( open( "../../data/output_api.p", "rb" ))
+
+# Loading trainning model
+t_model_m_g = load_input_data('../../data/model_m_g')
+t_model_m = load_input_data('../../data/model_m')
+t_model_g = load_input_data('../../data/model_g')
+
 
 blueprint = Blueprint(VERSION_STR, __name__)
 
 def games_input():
-    games = pickle.load( open( "../../data/games_input.p", "rb" ))
     return random.sample(games, 10)
 
 def recom_(postive_ids, negative_ids):
-    # Loading trainning model
-    t_model_m_g = load_input_data('../../data/model_m_g')
-    t_model_m = load_input_data('../../data/model_m')
-    t_model_g = load_input_data('../../data/model_g')
 
     #make recommendation
     user = 'user'
@@ -42,10 +48,12 @@ def recom_(postive_ids, negative_ids):
                                 t_model_m_g, t_model_m, t_model_g,
                                 '../../data')
 
-    final_result = []
+#    final_result = []
+    final_ids = defaultdict(list)
     for id_ in recom:
-        final_result.append(mg_output[id_])
-    print 'final', final_result
+        if id_ not in final_ids.keys():
+            final_result.append(mg_output[id_])
+            final_ids[id_] = mg_output[id_]
     return final_result
 
 
