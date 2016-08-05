@@ -5,11 +5,14 @@
 This API is used to recommend movies and video games. You feed the movies you like and dislike, select images of games you like and dislike, and it returns you a list of images of the recommended movies and/or games, and their correspondent
 amazon links to rent or buy them.
 
-Please check the web-app source code at:
+For details about the recommender go to:  
+https://github.com/JRigelo/Recommender
 
+Please check the webapp source code at:  
 https://github.com/JRigelo/free-time-oracle
 
-And the related website: http://recommender.dsoracle.com/
+And the related website:  
+http://recommender.dsoracle.com/
 
 
 ## Documentation
