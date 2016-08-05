@@ -2,7 +2,7 @@
 
 ## Overview
 
-This API is used to recommend movies and video games. You feed the movies you like and dislike, select images of games you like and dislike, and it returns you a list of images of the recommended movies and/or games, and their correspondent
+This API is used to recommend movies and video games. You feed the movies you like and dislike, select images of games you like and dislike, and it returns to you a list of images of the recommended movies and/or games, and their corresponding 
 amazon links to rent or buy them.
 
 For details about the recommender go to:  
