@@ -5,11 +5,21 @@
 This API is used to recommend movies and video games. You feed the movies you like and dislike, select images of games you like and dislike, and it returns you a list of images of the recommended movies and/or games, and their correspondent
 amazon links to rent or buy them.
 
+Please check the web-app source code at:
+
+https://github.com/JRigelo/free-time-oracle
+
+And the related website: http://recommender.dsoracle.com/
+
+
 ## Documentation
 
 API strongly based on: [FaceInfo REST API](https://github.com/acu192/faceinfo). Thanks, Ryan!
 
-And powered by Swagger-UI: [FaceInfo REST API Documentation](http://faceinfo.fishpoke.com:5000/)
+And powered by Swagger-UI: [Movies and Games REST API Documentation](http://52.207.160.193:5000)
+
+API runs in an AWS (Amazon Web Services) EC2 instance: https://aws.amazon.com/
+
 
 
 ## Technologies Used
@@ -20,5 +30,3 @@ And powered by Swagger-UI: [FaceInfo REST API Documentation](http://faceinfo.fis
 - [Swagger-UI](https://github.com/swagger-api/swagger-ui)
 - [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/) (fla _Swagger Spec_)
     - also see http://editor.swagger.io/ for a playground to help you write Swagger Spec
-
-
