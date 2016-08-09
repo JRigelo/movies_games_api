@@ -15,12 +15,10 @@ class MyCompleter(object):
                               if text in s[0]]
        else:
            self.matches = self.options[:]
-       print self.matches
 
        for k,v in self.dict.iteritems():
            for match in self.matches:
                if match == k and match not in results:
-                   print match
                    results.append((match, v))
 
        return results
